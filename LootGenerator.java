@@ -1,4 +1,4 @@
-package data.small;
+
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -11,8 +11,7 @@ import java.util.Scanner;
 public class LootGenerator {
 
     public static void fillMonsterMap(MonsterMap monsters) throws FileNotFoundException {
-        File file = new File(
-                "/home/jassohig17/workspace/" + "HW 7 LootGenerator/src/data/large/monstats.txt");
+        File file = new File("data/large/monstats.txt");
         Scanner stream = new Scanner(file);
         int index = 0;
         while (stream.hasNextLine()) {
@@ -25,8 +24,7 @@ public class LootGenerator {
     }
 
     public static void fillTCHashMap(HashMap<String, String[]> hmap) throws FileNotFoundException {
-        File file = new File("/home/jassohig17/workspace/"
-                + "HW 7 LootGenerator/src/data/large/TreasureClassEx.txt");
+        File file = new File("data/large/TreasureClassEx.txt");
         Scanner stream = new Scanner(file);
         while (stream.hasNextLine()) {
             String line = stream.nextLine();
@@ -37,8 +35,7 @@ public class LootGenerator {
     }
 
     public static void fillArmorList(ArrayList<Armor> armors) throws FileNotFoundException {
-        File file = new File(
-                "/home/jassohig17/workspace/" + "HW 7 LootGenerator/src/data/large/armor.txt");
+        File file = new File("data/large/armor.txt");
         Scanner stream = new Scanner(file);
         while (stream.hasNextLine()) {
             String line = stream.nextLine();
@@ -54,8 +51,7 @@ public class LootGenerator {
 
     public static void fillPrefixHmap(HashMap<Integer, Prefix> prefixes)
             throws FileNotFoundException {
-        File file = new File("/home/jassohig17/workspace/"
-                + "HW 7 LootGenerator/src/data/large/MagicPrefix.txt");
+        File file = new File("data/large/MagicPrefix.txt");
 
         Scanner stream = new Scanner(file);
         int index = 0;
@@ -76,8 +72,7 @@ public class LootGenerator {
 
     public static void fillSuffixHmap(HashMap<Integer, Suffix> suffixes)
             throws FileNotFoundException {
-        File file = new File("/home/jassohig17/workspace/"
-                + "HW 7 LootGenerator/src/data/large/MagicSuffix.txt");
+        File file = new File("data/large/MagicSuffix.txt");
 
         Scanner stream = new Scanner(file);
         int index = 0;
@@ -139,7 +134,7 @@ public class LootGenerator {
             return prefixes.get(num1).getPrefix() + " " + armor + " "
                     + suffixes.get(num2).getSuffix() + "\n" + "Defense: " + defense + "\n"
                     + prefixes.get(num1).generateStatValue() + " " + prefixes.get(num1).getStat()
-                    + "\n" + suffixes.get(num2).generateStatValue() + prefixes.get(num1).getStat()
+                    + "\n" + suffixes.get(num2).generateStatValue() + " " + prefixes.get(num1).getStat()
                     + "\n";
         } else if (prefixes.containsKey(num1)) {
             return prefixes.get(num1).getPrefix() + " " + armor + "\n" + "Defense: " + defense
@@ -175,6 +170,7 @@ public class LootGenerator {
         fillSuffixHmap(suffixHmap);
 
         boolean proceed = true;
+        Scanner scan = new Scanner(System.in);
 
         while (proceed) {
             // pick a random moster and fetch its TC
@@ -193,22 +189,18 @@ public class LootGenerator {
 
             while (invalid) {
                 System.out.println("Do you want to continue? [Y/N]");
-
-                Scanner scan = new Scanner(System.in);
                 String response = scan.next();
 
                 if (response.equalsIgnoreCase("y")) {
                     proceed = true;
                     invalid = false;
                 } else if (response.equalsIgnoreCase("n")) {
-                    
                     System.out.println("Thanks for playing, Exiting the game...");
                     proceed = false;
                     invalid = false;
                 }
-                scan.close();
             }
-
         }
+        scan.close();
     }
 }
